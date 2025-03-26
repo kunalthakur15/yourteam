@@ -39,9 +39,9 @@ public class UserServiceImpl implements UserService {
         User user = getUserById(userId);
         user.setFirstName(userDetails.getFirstName());
         user.setLastName(userDetails.getLastName());
-        user.setUserRole(userDetails.getUserRole());
-        user.setFantasyLeagueId(userDetails.getFantasyLeagueId());
-        user.setFantasyTeamId(userDetails.getFantasyTeamId());
+        user.setEmail(userDetails.getEmail());
+        user.setPhone(userDetails.getPhone());
+        user.setPassword(userDetails.getPassword());
         return userRepository.save(user);
     }
 

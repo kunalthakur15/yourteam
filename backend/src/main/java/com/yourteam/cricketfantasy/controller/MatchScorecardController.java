@@ -6,27 +6,27 @@ import com.yourteam.cricketfantasy.service.MatchScorecardService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/match-scorecards")
-@Tag(name = "Match Scorecard", description = "API endpoints for managing match scorecards")
+@Tag(name = "Match Scorecards", description = "API endpoints for managing match scorecards")
+@RequiredArgsConstructor
 public class MatchScorecardController {
 
-    @Autowired
-    private MatchScorecardService matchScorecardService;
+    private final MatchScorecardService matchScorecardService;
 
     @PostMapping
-    @Operation(summary = "Create a new match scorecard")
+    @Operation(summary = "Create new match scorecard")
     public ResponseEntity<InningsScorecard> createMatchScorecard(@RequestBody InningsScorecard matchScorecard) {
         return ResponseEntity.ok(matchScorecardService.createMatchScorecard(matchScorecard));
     }
 
     @GetMapping("/{scorecardId}")
-    @Operation(summary = "Get a match scorecard by ID")
+    @Operation(summary = "Get match scorecard by ID")
     public ResponseEntity<InningsScorecard> getMatchScorecardById(
             @Parameter(description = "ID of the match scorecard") @PathVariable Integer scorecardId) {
         return ResponseEntity.ok(matchScorecardService.getMatchScorecardById(scorecardId));
@@ -71,7 +71,7 @@ public class MatchScorecardController {
     }
 
     @PutMapping("/{scorecardId}")
-    @Operation(summary = "Update a match scorecard")
+    @Operation(summary = "Update match scorecard")
     public ResponseEntity<InningsScorecard> updateMatchScorecard(
             @Parameter(description = "ID of the match scorecard") @PathVariable Integer scorecardId,
             @RequestBody InningsScorecard matchScorecard) {
@@ -79,7 +79,7 @@ public class MatchScorecardController {
     }
 
     @DeleteMapping("/{scorecardId}")
-    @Operation(summary = "Delete a match scorecard")
+    @Operation(summary = "Delete match scorecard")
     public ResponseEntity<Void> deleteMatchScorecard(
             @Parameter(description = "ID of the match scorecard") @PathVariable Integer scorecardId) {
         matchScorecardService.deleteMatchScorecard(scorecardId);

@@ -1,5 +1,7 @@
 package com.yourteam.cricketfantasy.model;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -12,9 +14,17 @@ public class Team {
     @Column(name = "team_id")
     private Integer teamId;
 
-    @Column(name = "team_name", length = 255)
+    @Column(name = "team_name")
     private String teamName;
 
-    @Column(name = "team_logo", length = 255)
+    @Column(name = "team_logo")
     private String teamLogo;
+
+    @ManyToMany
+    @JoinTable(
+        name = "team_players",
+        joinColumns = @JoinColumn(name = "team_id"),
+        inverseJoinColumns = @JoinColumn(name = "player_id")
+    )
+    private List<Player> players;
 } 

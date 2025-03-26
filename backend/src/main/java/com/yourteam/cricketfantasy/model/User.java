@@ -1,5 +1,7 @@
 package com.yourteam.cricketfantasy.model;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -10,23 +12,13 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Integer userId;
+    private Long userId;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", length = 100)
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", length = 100)
     private String lastName;
-
-    @ManyToOne
-    @JoinColumn(name = "user_role_id")
-    private UserRole userRole;
-
-    @Column(name = "fantasy_league_id")
-    private Integer fantasyLeagueId;
-
-    @Column(name = "fantasy_team_id")
-    private Integer fantasyTeamId;
 
     @Column(name = "email", length = 100)
     private String email;
@@ -36,4 +28,7 @@ public class User {
 
     @Column(name = "password", length = 100)
     private String password;
+
+    @OneToMany (mappedBy = "user")
+    private List <LeagueUser> leagueUsers;
 } 

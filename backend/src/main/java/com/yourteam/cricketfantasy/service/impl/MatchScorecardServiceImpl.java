@@ -4,16 +4,17 @@ import com.yourteam.cricketfantasy.model.InningsScorecard;
 import com.yourteam.cricketfantasy.model.Team;
 import com.yourteam.cricketfantasy.repository.MatchScorecardRepository;
 import com.yourteam.cricketfantasy.service.MatchScorecardService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class MatchScorecardServiceImpl implements MatchScorecardService {
 
-    @Autowired
-    private MatchScorecardRepository matchScorecardRepository;
+    private final MatchScorecardRepository matchScorecardRepository;
 
     @Override
     @Transactional
@@ -24,7 +25,7 @@ public class MatchScorecardServiceImpl implements MatchScorecardService {
     @Override
     public InningsScorecard getMatchScorecardById(Integer scorecardId) {
         return matchScorecardRepository.findById(scorecardId)
-                .orElseThrow(() -> new RuntimeException("Match Scorecard not found with id: " + scorecardId));
+                .orElseThrow(() -> new EntityNotFoundException("Match Scorecard not found with id: " + scorecardId));
     }
 
     @Override
