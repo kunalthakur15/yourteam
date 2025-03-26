@@ -1,0 +1,246 @@
+﻿Database Schema
+ Table Users  {
+        user_id INT PK
+        first_name VARCHAR(100)
+        last_name VARCHAR(100)
+user_role_id INT
+        fantasy_league_id INT
+        fantasy_team_id INT
+}
+
+Table User_Roles {
+        role_id INT
+        role_name VARCHAR (25)
+}
+
+
+Table Players  {
+        player_id INT PK
+        first_name VARCHAR(100)
+        midlle_name VARCHAR(100)
+        last_name VARCHAR(100)
+        date_of_birth DATE
+        nationality VARCHAR(100)
+        role ENUM
+        batting_style VARCHAR(50)
+        bowling_style VARCHAR(50)
+        team_id INT
+}
+
+Table Teams  {
+        team_id INT PK
+        team_name VARCHAR(255)
+        team_logo VARCHAR(255)
+}
+
+Table Matches  {
+        match_id INT PK
+        tournament_id INT
+        match_date DATE
+        match_year INT
+        venue VARCHAR(255)
+        venue_city VARCHAR (255)
+        team1_id INT
+        team1_captain_id INT
+        team2_id INT
+        team2_captain _id INT
+        toss_winner_id INT
+        toss_decision VARCHAR (10)
+        was_super_over BOOLEAN
+        winning_team_id INT
+        won_by VARCHAR (10)
+        win_margin INT
+        mom INT
+        umpire_1 INT
+        umpire_2 INT
+        match_type ENUM
+}
+
+Table Tournaments  {
+        tournament_id INT PK
+        tournament_name VARCHAR(255)
+        year YEAR
+        location VARCHAR(255)
+}
+
+Table Match_Scorecards  {
+        scorecard_id INT PK
+        match_id INT FK
+        team_id INT FK
+        innings INT
+        runs INT
+        wickets INT
+        overs FLOAT
+        extras INT
+}
+
+Table Player_Scores  {
+        player_score_id INT PK
+        match_id INT FK
+        player_id INT FK
+        team_id INT FK
+        innings INT
+        batting_position INT
+        runs_scored INT
+        balls_faced INT
+        fours INT
+        sixes INT
+        strike_rate FLOAT
+        bowler_id INT FK
+        dismissal_type ENUM
+}
+
+Table Fall_Of_Wickets  {
+        fall_of_wicket_id INT PK
+        match_id INT FK
+        team_id INT FK
+        innings INT
+        wicket_number INT
+        runs_at_wicket INT
+        overs_at_wicket FLOAT
+        batsman_out_id INT FK
+        bowler_id INT FK
+        partner_1_id INT FK
+        partner_2_id INT FK
+}
+
+Table Partnerships  {
+        partnership_id INT PK
+        match_id INT FK
+        team_id INT FK
+        innings INT
+        wicket_number INT
+        partner_1_id INT FK
+        partner_2_id INT FK
+        runs INT
+        balls_faced INT
+        fours INT
+        sixes INT
+}
+
+Table Fantasy_Leagues  {
+        league_id INT PK
+        league_name VARCHAR(255)
+        created_date DATE
+        created_by INT
+}
+
+Table Fantasy_Teams  {
+        fantasy_team_id INT PK
+        league_id INT FK
+        team_name VARCHAR(255)
+        user_id INT
+        total_points INT
+}
+
+Table Fantasy_Team_Players  {
+        fantasy_team_player_id INT PK
+        fantasy_team_id INT FK
+        player_id INT FK
+        role ENUM
+        is_active BOOLEAN
+}
+
+Table Fantasy_Match_Points  {
+        fantasy_match_point_id INT PK
+        fantasy_team_id INT FK
+        match_id INT FK
+        user_id INT FK
+        points_scored INT
+}
+
+Table Fantasy_Team_Match_Scores  {
+        team_match_score_id INT PK
+        fantasy_team_id INT FK
+        match_id INT FK
+        total_points INT
+}
+
+Table Ball_By_Ball_Data {
+id INT PK
+innings INT
+ball_number FLOAT
+batter_id INT
+bowler_id INT
+non_striker_id INT
+extra_type VARCHAR(10)
+run_by_batsman INT
+run_by_extra INT
+total_run INT
+is_six BOOLEAN
+is_four BOOLEAN
+isWicketDelivery BOOLEAN
+player_out_id INT
+dismissal_type VARCHAR (25)
+fielder_involved_1 INT
+fielder_involved_2 INT
+BattingTeam INT
+}
+Table Umpires {
+        umpire_id INT PK
+        first_name VARCHAR(100)
+        last_name VARCHAR(100)
+        nationality VARCHAR(100)
+}
+Table Stadium {
+                   stadium_id INT PK
+stadium_name VARCHAR (255)
+                   city VARCHAR (255)
+                   country VARCHAR (255)
+                   odis_hosted INT
+                   tests_hosted INT
+                   t20i_hosted INT
+                   league_t20_hosted INT
+                   average_1stinn_score_odi INT
+                   average_2ndinn_score_odi INT
+                   average_1stinn_score_t20i INT
+                   average_2ndinn_score_t20i INT
+                   average_1stinn_score_leaguet20 INT
+                   average_2ndinn_score_leaguet20 INT
+                   percentage_win_batting_first_odi FLOAT
+                   percentage_win_batting_second_odi FLOAT
+percentage_win_batting_first_t20i FLOAT
+                   percentage_win_batting_second_t20i FLOAT
+percentage_win_batting_first_leaguet20 FLOAT
+                   percentage_win_batting_second_leaguet20 FLOAT
+percentage_win_batting_first_tests FLOAT
+                   percentage_win_batting_last_test FLOAT
+                   most_runs_odi INT
+                   most_wicket_odi INT
+                   most_runs_t20i INT
+                   most_wickets_t20i INT
+                   most_runs_leaguet20 INT
+                   most_wickets_leaguet20 INT
+most_runs_tests INT
+                   most_wickets_tests INT
+}                                                                                            
+
+
+Players team_id TO Teams team_id
+Matches tournament_id TO Tournaments tournament_id
+Matches team1_id TO Teams team_id
+Matches team2_id TO Teams team_id
+Matches winning_team_id TO Teams team_id
+Match_Scorecards match_id TO Matches match_id
+Match_Scorecards team_id TO Teams team_id
+Player_Scores match_id TO Matches match_id
+Player_Scores player_id TO Players player_id
+Player_Scores team_id TO Teams team_id
+Player_Scores bowler_id TO Players player_id
+Fall_Of_Wickets match_id TO Matches match_id
+Fall_Of_Wickets team_id TO Teams team_id
+Fall_Of_Wickets batsman_out_id TO Players player_id
+Fall_Of_Wickets bowler_id TO Players player_id
+Fall_Of_Wickets partner_1_id TO Players player_id
+Fall_Of_Wickets partner_2_id TO Players player_id
+Partnerships match_id TO Matches match_id
+Partnerships team_id TO Teams team_id
+Partnerships partner_1_id TO Players player_id
+Partnerships partner_2_id TO Players player_id
+Fantasy_Teams league_id TO Fantasy_Leagues league_id
+Fantasy_Team_Players fantasy_team_id TO Fantasy_Teams fantasy_team_id
+Fantasy_Team_Players player_id TO Players player_id
+Fantasy_Match_Points fantasy_team_id TO Fantasy_Teams fantasy_team_id Fantasy_Match_Points match_id TO Matches match_id
+Fantasy_Match_Points player_id TO Players player_id ===Should be User Id
+Fantasy_Team_Match_Scores fantasy_team_id TO Fantasy_Teams fantasy_team_id
+Fantasy_Team_Match_Scores match_id TO Matches match_id
