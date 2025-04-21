@@ -61,7 +61,7 @@ public class PlayerServiceImpl implements PlayerService {
         player.setRole(playerDetails.getRole());
         player.setBattingStyle(playerDetails.getBattingStyle());
         player.setBowlingStyle(playerDetails.getBowlingStyle());
-        player.setTeam(playerDetails.getTeam());
+        player.setTeams(playerDetails.getTeams());
         return playerRepository.save(player);
     }
 

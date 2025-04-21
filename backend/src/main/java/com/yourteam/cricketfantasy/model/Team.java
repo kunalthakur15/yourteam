@@ -27,4 +27,12 @@ public class Team {
         inverseJoinColumns = @JoinColumn(name = "player_id")
     )
     private List<Player> players;
+
+    @ManyToMany
+    @JoinTable(
+        name = "team_tournaments",
+        joinColumns = @JoinColumn(name = "team_id"),
+        inverseJoinColumns = @JoinColumn(name = "tournament_id")
+    )
+    private List<Tournament> tournaments;
 } 

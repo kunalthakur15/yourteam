@@ -3,6 +3,7 @@ package com.yourteam.cricketfantasy.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Entity
@@ -38,7 +39,11 @@ public class Player {
     @Column(name = "bowling_style")
     private String bowlingStyle;
 
-    @ManyToOne
-    @JoinColumn(name = "team_id")
-    private Team team;
+    @ManyToMany
+    @JoinTable(
+        name = "team_players",
+        joinColumns = @JoinColumn(name = "player_id"),
+        inverseJoinColumns = @JoinColumn(name = "team_id")
+    )
+    private List<Team> teams;
 } 
