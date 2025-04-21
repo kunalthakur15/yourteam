@@ -1,25 +1,19 @@
 package com.yourteam.cricketfantasy.service.impl;
 
 import com.yourteam.cricketfantasy.model.Match;
-import com.yourteam.cricketfantasy.model.MatchType;
-import com.yourteam.cricketfantasy.model.Team;
 import com.yourteam.cricketfantasy.repository.MatchRepository;
 import com.yourteam.cricketfantasy.service.MatchService;
-import jakarta.persistence.EntityNotFoundException;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class MatchServiceImpl implements MatchService {
 
-    private final MatchRepository matchRepository;
+    @Autowired
+    private MatchRepository matchRepository;
 
     @Override
-    @Transactional
     public Match createMatch(Match match) {
         return matchRepository.save(match);
     }
@@ -27,7 +21,7 @@ public class MatchServiceImpl implements MatchService {
     @Override
     public Match getMatchById(Integer matchId) {
         return matchRepository.findById(matchId)
-                .orElseThrow(() -> new EntityNotFoundException("Match not found with id: " + matchId));
+                .orElseThrow(() -> new RuntimeException("Match not found with id: " + matchId));
     }
 
     @Override
@@ -36,60 +30,51 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
-    public List<Match> getMatchesByTournament(Integer tournamentId) {
-        return matchRepository.findByTournamentTournamentId(tournamentId);
+    public Match updateMatch(Integer matchId, Match match) {
+        Match existingMatch = getMatchById(matchId);
+        existingMatch.setTournament(match.getTournament());
+        existingMatch.setInningsScorecards(match.getInningsScorecards());
+        existingMatch.setMatchDate(match.getMatchDate());
+        existingMatch.setMatchYear(match.getMatchYear());
+        existingMatch.setVenue(match.getVenue());
+        existingMatch.setVenueCity(match.getVenueCity());
+        existingMatch.setTeam1(match.getTeam1());
+        existingMatch.setTeam1Captain(match.getTeam1Captain());
+        existingMatch.setTeam2(match.getTeam2());
+        existingMatch.setTeam2Captain(match.getTeam2Captain());
+        existingMatch.setTossWinner(match.getTossWinner());
+        existingMatch.setTossDecision(match.getTossDecision());
+        existingMatch.setWasSuperOver(match.getWasSuperOver());
+        existingMatch.setWinningTeam(match.getWinningTeam());
+        existingMatch.setWonBy(match.getWonBy());
+        existingMatch.setWinMargin(match.getWinMargin());
+        existingMatch.setManOfTheMatch(match.getManOfTheMatch());
+        existingMatch.setUmpire1(match.getUmpire1());
+        existingMatch.setUmpire2(match.getUmpire2());
+        existingMatch.setMatchType(match.getMatchType());
+        return matchRepository.save(existingMatch);
     }
 
     @Override
-    public List<Match> getMatchesByTeam(Team team) {
-        return matchRepository.findByTeam1OrTeam2(team, team);
-    }
-
-    @Override
-    public List<Match> getMatchesByDateRange(LocalDate startDate, LocalDate endDate) {
-        return matchRepository.findByMatchDateBetween(startDate, endDate);
-    }
-
-    @Override
-    public List<Match> getMatchesByType(MatchType matchType) {
-        return matchRepository.findByMatchType(matchType);
-    }
-
-    @Override
-    public List<Match> getMatchesByWinningTeam(Team winningTeam) {
-        return matchRepository.findByWinningTeam(winningTeam);
-    }
-
-    @Override
-    @Transactional
-    public Match updateMatch(Integer matchId, Match matchDetails) {
-        Match match = getMatchById(matchId);
-        match.setTournament(matchDetails.getTournament());
-        match.setMatchDate(matchDetails.getMatchDate());
-        match.setMatchYear(matchDetails.getMatchYear());
-        match.setVenue(matchDetails.getVenue());
-        match.setVenueCity(matchDetails.getVenueCity());
-        match.setTeam1(matchDetails.getTeam1());
-        match.setTeam1Captain(matchDetails.getTeam1Captain());
-        match.setTeam2(matchDetails.getTeam2());
-        match.setTeam2Captain(matchDetails.getTeam2Captain());
-        match.setTossWinner(matchDetails.getTossWinner());
-        match.setTossDecision(matchDetails.getTossDecision());
-        match.setWasSuperOver(matchDetails.getWasSuperOver());
-        match.setWinningTeam(matchDetails.getWinningTeam());
-        match.setWonBy(matchDetails.getWonBy());
-        match.setWinMargin(matchDetails.getWinMargin());
-        match.setManOfTheMatch(matchDetails.getManOfTheMatch());
-        match.setUmpire1(matchDetails.getUmpire1());
-        match.setUmpire2(matchDetails.getUmpire2());
-        match.setMatchType(matchDetails.getMatchType());
-        return matchRepository.save(match);
-    }
-
-    @Override
-    @Transactional
     public void deleteMatch(Integer matchId) {
-        Match match = getMatchById(matchId);
-        matchRepository.delete(match);
+        matchRepository.deleteById(matchId);
+    }
+
+    @Override
+    public List<Match> getMatchesByTournament(Integer tournamentId) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getMatchesByTournament'");
+    }
+
+    @Override
+    public List<Match> getMatchesByTeam(Integer teamId) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getMatchesByTeam'");
+    }
+
+    @Override
+    public List<Match> getMatchesByDate(String date) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getMatchesByDate'");
     }
 } 

@@ -9,4 +9,5 @@ public interface TeamService {
     List<Team> getAllTeams();
     Team updateTeam(Integer teamId, Team team);
     void deleteTeam(Integer teamId);
+    Object getTeamsByTournament(Integer tournamentId);
 } 

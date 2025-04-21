@@ -3,21 +3,17 @@ package com.yourteam.cricketfantasy.service.impl;
 import com.yourteam.cricketfantasy.model.Team;
 import com.yourteam.cricketfantasy.repository.TeamRepository;
 import com.yourteam.cricketfantasy.service.TeamService;
-import jakarta.persistence.EntityNotFoundException;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class TeamServiceImpl implements TeamService {
 
-    private final TeamRepository teamRepository;
+    @Autowired
+    private TeamRepository teamRepository;
 
     @Override
-    @Transactional
     public Team createTeam(Team team) {
         return teamRepository.save(team);
     }
@@ -25,7 +21,7 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public Team getTeamById(Integer teamId) {
         return teamRepository.findById(teamId)
-                .orElseThrow(() -> new EntityNotFoundException("Team not found with id: " + teamId));
+                .orElseThrow(() -> new RuntimeException("Team not found with id: " + teamId));
     }
 
     @Override
@@ -34,18 +30,22 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    @Transactional
-    public Team updateTeam(Integer teamId, Team teamDetails) {
-        Team team = getTeamById(teamId);
-        team.setTeamName(teamDetails.getTeamName());
-        team.setTeamLogo(teamDetails.getTeamLogo());
-        return teamRepository.save(team);
+    public Team updateTeam(Integer teamId, Team team) {
+        Team existingTeam = getTeamById(teamId);
+        existingTeam.setTeamName(team.getTeamName());
+        existingTeam.setTeamLogo(team.getTeamLogo());
+        existingTeam.setPlayers(team.getPlayers());
+        existingTeam.setTournaments(team.getTournaments());
+        return teamRepository.save(existingTeam);
     }
 
     @Override
-    @Transactional
     public void deleteTeam(Integer teamId) {
-        Team team = getTeamById(teamId);
-        teamRepository.delete(team);
+        teamRepository.deleteById(teamId);
+    }
+
+    @Override
+    public List<Team> getTeamsByTournament(Integer tournamentId) {
+        return teamRepository.findByTournamentsTournamentId(tournamentId);
     }
 } 

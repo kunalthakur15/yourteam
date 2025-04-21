@@ -1,19 +1,18 @@
 package com.yourteam.cricketfantasy.controller;
 
 import com.yourteam.cricketfantasy.model.FallOfWickets;
-import com.yourteam.cricketfantasy.model.Team;
 import com.yourteam.cricketfantasy.service.FallOfWicketsService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/fall-of-wickets")
-@Tag(name = "Fall of Wickets", description = "API endpoints for managing fall of wickets")
+@Tag(name = "Fall of Wickets Management", description = "APIs for managing fall of wickets data")
 public class FallOfWicketsController {
 
     @Autowired
@@ -25,11 +24,10 @@ public class FallOfWicketsController {
         return ResponseEntity.ok(fallOfWicketsService.createFallOfWickets(fallOfWickets));
     }
 
-    @GetMapping("/{fallOfWicketId}")
+    @GetMapping("/{id}")
     @Operation(summary = "Get fall of wickets by ID")
-    public ResponseEntity<FallOfWickets> getFallOfWicketsById(
-            @Parameter(description = "ID of the fall of wickets record") @PathVariable Integer fallOfWicketId) {
-        return ResponseEntity.ok(fallOfWicketsService.getFallOfWicketsById(fallOfWicketId));
+    public ResponseEntity<FallOfWickets> getFallOfWicketsById(@PathVariable Integer id) {
+        return ResponseEntity.ok(fallOfWicketsService.getFallOfWicketsById(id));
     }
 
     @GetMapping
@@ -40,49 +38,36 @@ public class FallOfWicketsController {
 
     @GetMapping("/match/{matchId}")
     @Operation(summary = "Get fall of wickets by match ID")
-    public ResponseEntity<List<FallOfWickets>> getFallOfWicketsByMatch(
-            @Parameter(description = "ID of the match") @PathVariable Integer matchId) {
+    public ResponseEntity<List<FallOfWickets>> getFallOfWicketsByMatch(@PathVariable Integer matchId) {
         return ResponseEntity.ok(fallOfWicketsService.getFallOfWicketsByMatch(matchId));
+    }
+
+    @GetMapping("/match/{matchId}/innings/{innings}")
+    @Operation(summary = "Get fall of wickets by match ID and innings")
+    public ResponseEntity<List<FallOfWickets>> getFallOfWicketsByMatchAndInnings(
+            @PathVariable Integer matchId,
+            @PathVariable Integer innings) {
+        return ResponseEntity.ok(fallOfWicketsService.getFallOfWicketsByMatchAndInnings(matchId, innings));
     }
 
     @GetMapping("/team/{teamId}")
     @Operation(summary = "Get fall of wickets by team ID")
-    public ResponseEntity<List<FallOfWickets>> getFallOfWicketsByTeam(
-            @Parameter(description = "ID of the team") @PathVariable Integer teamId) {
-        Team team = new Team();
-        team.setTeamId(teamId);
-        return ResponseEntity.ok(fallOfWicketsService.getFallOfWicketsByTeam(team));
+    public ResponseEntity<List<FallOfWickets>> getFallOfWicketsByTeam(@PathVariable Integer teamId) {
+        return ResponseEntity.ok(fallOfWicketsService.getFallOfWicketsByTeam(teamId));
     }
 
-    @GetMapping("/match/{matchId}/team/{teamId}")
-    @Operation(summary = "Get fall of wickets by match and team IDs")
-    public ResponseEntity<List<FallOfWickets>> getFallOfWicketsByMatchAndTeam(
-            @Parameter(description = "ID of the match") @PathVariable Integer matchId,
-            @Parameter(description = "ID of the team") @PathVariable Integer teamId) {
-        return ResponseEntity.ok(fallOfWicketsService.getFallOfWicketsByMatchAndTeam(matchId, teamId));
-    }
-
-    @GetMapping("/match/{matchId}/innings/{innings}")
-    @Operation(summary = "Get fall of wickets by match ID and innings number")
-    public ResponseEntity<List<FallOfWickets>> getFallOfWicketsByMatchAndInnings(
-            @Parameter(description = "ID of the match") @PathVariable Integer matchId,
-            @Parameter(description = "Innings number") @PathVariable Integer innings) {
-        return ResponseEntity.ok(fallOfWicketsService.getFallOfWicketsByMatchAndInnings(matchId, innings));
-    }
-
-    @PutMapping("/{fallOfWicketId}")
+    @PutMapping("/{id}")
     @Operation(summary = "Update fall of wickets record")
     public ResponseEntity<FallOfWickets> updateFallOfWickets(
-            @Parameter(description = "ID of the fall of wickets record") @PathVariable Integer fallOfWicketId,
+            @PathVariable Integer id,
             @RequestBody FallOfWickets fallOfWickets) {
-        return ResponseEntity.ok(fallOfWicketsService.updateFallOfWickets(fallOfWicketId, fallOfWickets));
+        return ResponseEntity.ok(fallOfWicketsService.updateFallOfWickets(id, fallOfWickets));
     }
 
-    @DeleteMapping("/{fallOfWicketId}")
+    @DeleteMapping("/{id}")
     @Operation(summary = "Delete fall of wickets record")
-    public ResponseEntity<Void> deleteFallOfWickets(
-            @Parameter(description = "ID of the fall of wickets record") @PathVariable Integer fallOfWicketId) {
-        fallOfWicketsService.deleteFallOfWickets(fallOfWicketId);
+    public ResponseEntity<Void> deleteFallOfWickets(@PathVariable Integer id) {
+        fallOfWicketsService.deleteFallOfWickets(id);
         return ResponseEntity.ok().build();
     }
 } 

@@ -1,12 +1,10 @@
 package com.yourteam.cricketfantasy.service.impl;
 
 import com.yourteam.cricketfantasy.model.FallOfWickets;
-import com.yourteam.cricketfantasy.model.Team;
 import com.yourteam.cricketfantasy.repository.FallOfWicketsRepository;
 import com.yourteam.cricketfantasy.service.FallOfWicketsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
@@ -16,15 +14,14 @@ public class FallOfWicketsServiceImpl implements FallOfWicketsService {
     private FallOfWicketsRepository fallOfWicketsRepository;
 
     @Override
-    @Transactional
     public FallOfWickets createFallOfWickets(FallOfWickets fallOfWickets) {
         return fallOfWicketsRepository.save(fallOfWickets);
     }
 
     @Override
-    public FallOfWickets getFallOfWicketsById(Integer fallOfWicketId) {
-        return fallOfWicketsRepository.findById(fallOfWicketId)
-                .orElseThrow(() -> new RuntimeException("Fall of Wickets not found with id: " + fallOfWicketId));
+    public FallOfWickets getFallOfWicketsById(Integer id) {
+        return fallOfWicketsRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Fall of wickets not found with id: " + id));
     }
 
     @Override
@@ -38,25 +35,18 @@ public class FallOfWicketsServiceImpl implements FallOfWicketsService {
     }
 
     @Override
-    public List<FallOfWickets> getFallOfWicketsByTeam(Team team) {
-        return fallOfWicketsRepository.findByTeam(team);
-    }
-
-    @Override
-    public List<FallOfWickets> getFallOfWicketsByMatchAndTeam(Integer matchId, Integer teamId) {
-        return fallOfWicketsRepository.findByMatchMatchIdAndTeamTeamId(matchId, teamId);
-    }
-
-    @Override
     public List<FallOfWickets> getFallOfWicketsByMatchAndInnings(Integer matchId, Integer innings) {
         return fallOfWicketsRepository.findByMatchMatchIdAndInnings(matchId, innings);
     }
 
     @Override
-    @Transactional
-    public FallOfWickets updateFallOfWickets(Integer fallOfWicketId, FallOfWickets fallOfWickets) {
-        FallOfWickets existingFallOfWickets = getFallOfWicketsById(fallOfWicketId);
-        // Update fields
+    public List<FallOfWickets> getFallOfWicketsByTeam(Integer teamId) {
+        return fallOfWicketsRepository.findByTeamTeamId(teamId);
+    }
+
+    @Override
+    public FallOfWickets updateFallOfWickets(Integer id, FallOfWickets fallOfWickets) {
+        FallOfWickets existingFallOfWickets = getFallOfWicketsById(id);
         existingFallOfWickets.setMatch(fallOfWickets.getMatch());
         existingFallOfWickets.setTeam(fallOfWickets.getTeam());
         existingFallOfWickets.setInnings(fallOfWickets.getInnings());
@@ -71,8 +61,7 @@ public class FallOfWicketsServiceImpl implements FallOfWicketsService {
     }
 
     @Override
-    @Transactional
-    public void deleteFallOfWickets(Integer fallOfWicketId) {
-        fallOfWicketsRepository.deleteById(fallOfWicketId);
+    public void deleteFallOfWickets(Integer id) {
+        fallOfWicketsRepository.deleteById(id);
     }
 } 

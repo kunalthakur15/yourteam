@@ -3,29 +3,25 @@ package com.yourteam.cricketfantasy.service.impl;
 import com.yourteam.cricketfantasy.model.User;
 import com.yourteam.cricketfantasy.repository.UserRepository;
 import com.yourteam.cricketfantasy.service.UserService;
-import jakarta.persistence.EntityNotFoundException;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
-    @Transactional
     public User createUser(User user) {
         return userRepository.save(user);
     }
 
     @Override
-    public User getUserById(Integer userId) {
+    public User getUserById(Long userId) {
         return userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
     }
 
     @Override
@@ -34,21 +30,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
-    public User updateUser(Integer userId, User userDetails) {
-        User user = getUserById(userId);
-        user.setFirstName(userDetails.getFirstName());
-        user.setLastName(userDetails.getLastName());
-        user.setEmail(userDetails.getEmail());
-        user.setPhone(userDetails.getPhone());
-        user.setPassword(userDetails.getPassword());
-        return userRepository.save(user);
+    public User updateUser(Long userId, User user) {
+        User existingUser = getUserById(userId);
+        existingUser.setFirstName(user.getFirstName());
+        existingUser.setLastName(user.getLastName());
+        existingUser.setEmail(user.getEmail());
+        existingUser.setPhone(user.getPhone());
+        existingUser.setPassword(user.getPassword());
+        existingUser.setLeagueUsers(user.getLeagueUsers());
+        return userRepository.save(existingUser);
     }
 
     @Override
-    @Transactional
-    public void deleteUser(Integer userId) {
-        User user = getUserById(userId);
-        userRepository.delete(user);
+    public void deleteUser(Long userId) {
+        userRepository.deleteById(userId);
     }
 } 
