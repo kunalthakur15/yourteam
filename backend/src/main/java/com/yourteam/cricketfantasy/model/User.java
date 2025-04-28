@@ -11,8 +11,8 @@ import lombok.Data;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private Long userId;
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "first_name", length = 100)
     private String firstName;
@@ -30,5 +30,9 @@ public class User {
     private String password;
 
     @OneToMany (mappedBy = "user")
-    private List <LeagueUser> leagueUsers;
+    private List <FantasyTeam> fantasyTeams;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    private LeagueRole role;
 } 

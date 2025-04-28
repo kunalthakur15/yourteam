@@ -23,5 +23,11 @@ public class FantasyLeague {
     @Column(name = "league_description")
     private String leagueDescription;
     
-    
+    @ManyToMany
+    @JoinTable(
+        name = "fantasy_league_teams",
+        joinColumns = @JoinColumn(name = "league_id"),
+        inverseJoinColumns = @JoinColumn(name = "team_id")
+    )
+    private List<FantasyTeam> fantasyTeams;
 }

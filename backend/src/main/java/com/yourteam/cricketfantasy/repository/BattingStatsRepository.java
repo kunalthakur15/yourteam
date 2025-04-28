@@ -7,9 +7,5 @@ import java.util.List;
 
 @Repository
 public interface BattingStatsRepository extends JpaRepository<BattingStats, Integer> {
-    List<BattingStats> findByTeamTeamId(Integer teamId);
-    List<BattingStats> findByMatchMatchId(Integer matchId);
-    List<BattingStats> findByMatchMatchIdAndTeamTeamId(Integer matchId, Integer teamId);
-    List<BattingStats> findByPlayerPlayerId(Integer playerId);
-    List<BattingStats> findByMatchMatchIdAndInnings(Integer matchId, Integer innings);
+    List<BattingStats> findByPlayerId(Integer playerId);
 } 

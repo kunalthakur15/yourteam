@@ -7,8 +7,7 @@ public interface FantasyTeamService {
     FantasyTeam createFantasyTeam(FantasyTeam fantasyTeam);
     FantasyTeam getFantasyTeamById(Integer id);
     List<FantasyTeam> getAllFantasyTeams();
-    List<FantasyTeam> getFantasyTeamsByLeagueUser(Long leagueUserId);
-    List<FantasyTeam> getFantasyTeamsByMatch(Integer matchId);
+    List<FantasyTeam> getFantasyTeamsByUser(Long userId);
     FantasyTeam updateFantasyTeam(Integer id, FantasyTeam fantasyTeam);
     void deleteFantasyTeam(Integer id);
 } 

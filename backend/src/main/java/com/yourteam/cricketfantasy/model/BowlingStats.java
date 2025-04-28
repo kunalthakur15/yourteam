@@ -12,10 +12,6 @@ public class BowlingStats {
     @Column(name = "bowling_stats_id")
     private Integer bowlingStatsId;
 
-    @ManyToOne
-    @JoinColumn(name = "match_id")
-    private Match match;
-
     @ManyToOne 
     @JoinColumn(name = "innings_scorecard_id")
     private InningsScorecard inningsScorecard;
@@ -27,9 +23,6 @@ public class BowlingStats {
     @OneToOne
     @JoinColumn(name = "team_id")
     private Team team;
-
-    @Column(name = "innings")
-    private Integer innings;
 
     @Column(name = "overs")
     private Float overs;

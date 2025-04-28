@@ -12,24 +12,20 @@ public class BattingStats {
     @Column(name = "batting_stats_id")
     private Integer battingStatsId;
 
-    @ManyToOne
-    @JoinColumn(name = "match_id")
-    private Match match;
-
     @ManyToOne 
     @JoinColumn(name = "innings_scorecard_id")
     private InningsScorecard inningsScorecard;
-
-    @ManyToOne
-    @JoinColumn(name = "player_id")
-    private Player player;
 
     @OneToOne
     @JoinColumn(name = "team_id")
     private Team team;
 
-    @Column(name = "innings")
-    private Integer innings;
+    @ManyToOne
+    @JoinColumn(name = "player_id")
+    private Player player;
+
+    @Column(name = "didNotBat")
+    private Boolean didNotBat = true;
 
     @Column(name = "batting_position")
     private Integer battingPosition;

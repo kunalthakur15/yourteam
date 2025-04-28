@@ -36,40 +36,6 @@ public class BowlingStatsController {
         return ResponseEntity.ok(bowlingStatsService.getAllBowlingStats());
     }
 
-    @GetMapping("/match/{matchId}")
-    @Operation(summary = "Get bowling statistics by match ID")
-    public ResponseEntity<List<BowlingStats>> getBowlingStatsByMatch(@PathVariable Integer matchId) {
-        return ResponseEntity.ok(bowlingStatsService.getBowlingStatsByMatch(matchId));
-    }
-
-    @GetMapping("/player/{playerId}")
-    @Operation(summary = "Get bowling statistics by player ID")
-    public ResponseEntity<List<BowlingStats>> getBowlingStatsByPlayer(@PathVariable Integer playerId) {
-        return ResponseEntity.ok(bowlingStatsService.getBowlingStatsByPlayer(playerId));
-    }
-
-    @GetMapping("/team/{teamId}")
-    @Operation(summary = "Get bowling statistics by team ID")
-    public ResponseEntity<List<BowlingStats>> getBowlingStatsByTeam(@PathVariable Integer teamId) {
-        return ResponseEntity.ok(bowlingStatsService.getBowlingStatsByTeam(teamId));
-    }
-
-    @GetMapping("/match/{matchId}/team/{teamId}")
-    @Operation(summary = "Get bowling statistics by match ID and team ID")
-    public ResponseEntity<List<BowlingStats>> getBowlingStatsByMatchAndTeam(
-            @PathVariable Integer matchId,
-            @PathVariable Integer teamId) {
-        return ResponseEntity.ok(bowlingStatsService.getBowlingStatsByMatchAndTeam(matchId, teamId));
-    }
-
-    @GetMapping("/match/{matchId}/innings/{innings}")
-    @Operation(summary = "Get bowling statistics by match ID and innings")
-    public ResponseEntity<List<BowlingStats>> getBowlingStatsByMatchAndInnings(
-            @PathVariable Integer matchId,
-            @PathVariable Integer innings) {
-        return ResponseEntity.ok(bowlingStatsService.getBowlingStatsByMatchAndInnings(matchId, innings));
-    }
-
     @PutMapping("/{bowlingStatsId}")
     @Operation(summary = "Update bowling statistics")
     public ResponseEntity<BowlingStats> updateBowlingStats(

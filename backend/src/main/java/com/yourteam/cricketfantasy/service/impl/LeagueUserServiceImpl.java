@@ -1,7 +1,7 @@
 package com.yourteam.cricketfantasy.service.impl;
 
-import com.yourteam.cricketfantasy.model.LeagueUser;
-import com.yourteam.cricketfantasy.repository.LeagueUserRepository;
+import com.yourteam.cricketfantasy.model.User;
+import com.yourteam.cricketfantasy.repository.UserRepository;
 import com.yourteam.cricketfantasy.service.LeagueUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,36 +11,39 @@ import java.util.List;
 public class LeagueUserServiceImpl implements LeagueUserService {
 
     @Autowired
-    private LeagueUserRepository leagueUserRepository;
+    private UserRepository userRepository;
 
     @Override
-    public LeagueUser createLeagueUser(LeagueUser leagueUser) {
-        return leagueUserRepository.save(leagueUser);
+    public User createLeagueUser(User user) {
+        return userRepository.save(user);
     }
 
     @Override
-    public LeagueUser getLeagueUserById(Long id) {
-        return leagueUserRepository.findById(id)
+    public User getLeagueUserById(Long id) {
+        return userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("League user not found with id: " + id));
     }
 
     @Override
-    public List<LeagueUser> getAllLeagueUsers() {
-        return leagueUserRepository.findAll();
+    public List<User> getAllLeagueUsers() {
+        return userRepository.findAll();
     }
 
     @Override
-    public LeagueUser updateLeagueUser(Long id, LeagueUser leagueUser) {
-        LeagueUser existingLeagueUser = getLeagueUserById(id);
-        existingLeagueUser.setUser(leagueUser.getUser());
-        existingLeagueUser.setLeagueId(leagueUser.getLeagueId());
-        existingLeagueUser.setFantasyTeams(leagueUser.getFantasyTeams());
-        existingLeagueUser.setRole(leagueUser.getRole());
-        return leagueUserRepository.save(existingLeagueUser);
+    public User updateLeagueUser(Long id, User user) {
+        User existingUser = getLeagueUserById(id);
+        existingUser.setFirstName(user.getFirstName());
+        existingUser.setLastName(user.getLastName());
+        existingUser.setEmail(user.getEmail());
+        existingUser.setPhone(user.getPhone());
+        existingUser.setPassword(user.getPassword());
+        existingUser.setFantasyTeams(user.getFantasyTeams());
+        existingUser.setRole(user.getRole());
+        return userRepository.save(existingUser);
     }
 
     @Override
     public void deleteLeagueUser(Long id) {
-        leagueUserRepository.deleteById(id);
+        userRepository.deleteById(id);
     }
 } 

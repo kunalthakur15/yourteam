@@ -33,7 +33,7 @@ public class FantasyTeamServiceImpl implements FantasyTeamService {
     public FantasyTeam updateFantasyTeam(Integer id, FantasyTeam fantasyTeam) {
         FantasyTeam existingFantasyTeam = getFantasyTeamById(id);
         existingFantasyTeam.setFantasyTeamName(fantasyTeam.getFantasyTeamName());
-        existingFantasyTeam.setLeagueUser(fantasyTeam.getLeagueUser());
+        existingFantasyTeam.setUser(fantasyTeam.getUser());
         existingFantasyTeam.setMatch(fantasyTeam.getMatch());
         existingFantasyTeam.setPlayers(fantasyTeam.getPlayers());
         return fantasyTeamRepository.save(existingFantasyTeam);
@@ -45,12 +45,7 @@ public class FantasyTeamServiceImpl implements FantasyTeamService {
     }
 
     @Override
-    public List<FantasyTeam> getFantasyTeamsByLeagueUser(Long leagueUserId) {
-        return fantasyTeamRepository.findByLeagueUserLeagueUserId(leagueUserId);
-    }
-
-    @Override
-    public List<FantasyTeam> getFantasyTeamsByMatch(Integer matchId) {
-        return fantasyTeamRepository.findByMatchMatchId(matchId);
+    public List<FantasyTeam> getFantasyTeamsByUser(Long userId) {
+        return fantasyTeamRepository.findByUserId(userId);
     }
 } 

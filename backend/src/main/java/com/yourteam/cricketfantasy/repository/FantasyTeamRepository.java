@@ -7,6 +7,5 @@ import java.util.List;
 
 @Repository
 public interface FantasyTeamRepository extends JpaRepository<FantasyTeam, Integer> {
-    List<FantasyTeam> findByLeagueUserLeagueUserId(Long leagueUserId);
-    List<FantasyTeam> findByMatchMatchId(Integer matchId);
+    List<FantasyTeam> findByUserId(Long userId);
 } 

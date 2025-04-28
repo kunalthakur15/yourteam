@@ -17,13 +17,13 @@ public class FantasyTeam {
     @Column(name = "fantasy_team_name")
     private String fantasyTeamName;
 
-    @ManyToOne
-    @JoinColumn(name = "league_user_id")
-    private LeagueUser leagueUser;
-
     @OneToOne
     @JoinColumn(name = "match_id")
     private Match match;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToMany
     @JoinTable(
@@ -32,4 +32,12 @@ public class FantasyTeam {
         inverseJoinColumns = @JoinColumn(name = "player_id")
     )
     private List<Player> players;
+    
+    @ManyToMany
+    @JoinTable(
+        name = "fantasy_team_leagues",
+        joinColumns = @JoinColumn(name = "fantasy_team_id"),
+        inverseJoinColumns = @JoinColumn(name = "league_id")
+    )
+    private List<FantasyLeague> fantasyLeagues;
 }

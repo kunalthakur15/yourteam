@@ -30,38 +30,11 @@ public class BowlingStatsServiceImpl implements BowlingStatsService {
     }
 
     @Override
-    public List<BowlingStats> getBowlingStatsByMatch(Integer matchId) {
-        return bowlingStatsRepository.findByMatchMatchId(matchId);
-    }
-
-    @Override
-    public List<BowlingStats> getBowlingStatsByPlayer(Integer playerId) {
-        return bowlingStatsRepository.findByPlayerPlayerId(playerId);
-    }
-
-    @Override
-    public List<BowlingStats> getBowlingStatsByTeam(Integer teamId) {
-        return bowlingStatsRepository.findByTeamTeamId(teamId);
-    }
-
-    @Override
-    public List<BowlingStats> getBowlingStatsByMatchAndTeam(Integer matchId, Integer teamId) {
-        return bowlingStatsRepository.findByMatchMatchIdAndTeamTeamId(matchId, teamId);
-    }
-
-    @Override
-    public List<BowlingStats> getBowlingStatsByMatchAndInnings(Integer matchId, Integer innings) {
-        return bowlingStatsRepository.findByMatchMatchIdAndInnings(matchId, innings);
-    }
-
-    @Override
     public BowlingStats updateBowlingStats(Integer bowlingStatsId, BowlingStats bowlingStats) {
         BowlingStats existingBowlingStats = getBowlingStatsById(bowlingStatsId);
-        existingBowlingStats.setMatch(bowlingStats.getMatch());
         existingBowlingStats.setInningsScorecard(bowlingStats.getInningsScorecard());
         existingBowlingStats.setPlayer(bowlingStats.getPlayer());
         existingBowlingStats.setTeam(bowlingStats.getTeam());
-        existingBowlingStats.setInnings(bowlingStats.getInnings());
         existingBowlingStats.setOvers(bowlingStats.getOvers());
         existingBowlingStats.setMaidens(bowlingStats.getMaidens());
         existingBowlingStats.setRunsConceded(bowlingStats.getRunsConceded());

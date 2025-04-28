@@ -8,8 +8,6 @@ public interface InningsScorecardService {
     InningsScorecard getInningsScorecardById(Integer inningsScorecardId);
     List<InningsScorecard> getAllInningsScorecards();
     List<InningsScorecard> getInningsScorecardsByMatch(Integer matchId);
-    List<InningsScorecard> getInningsScorecardsByTeam(Integer teamId);
-    List<InningsScorecard> getInningsScorecardsByMatchAndTeam(Integer matchId, Integer teamId);
     InningsScorecard getInningsScorecardByMatchAndInnings(Integer matchId, Integer innings);
     InningsScorecard updateInningsScorecard(Integer inningsScorecardId, InningsScorecard inningsScorecard);
     void deleteInningsScorecard(Integer inningsScorecardId);

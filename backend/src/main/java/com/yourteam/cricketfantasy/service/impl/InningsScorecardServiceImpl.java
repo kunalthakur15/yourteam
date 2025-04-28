@@ -49,23 +49,12 @@ public class InningsScorecardServiceImpl implements InningsScorecardService {
 
     @Override
     public InningsScorecard getInningsScorecardByMatchAndInnings(Integer matchId, Integer innings) {
-        return inningsScorecardRepository.findByMatchMatchIdAndInnings(matchId, innings).stream()
-                .findFirst()
+        return inningsScorecardRepository.findByMatchIdAndInningNumber(matchId, innings)
                 .orElseThrow(() -> new RuntimeException("Innings scorecard not found for match: " + matchId + " and innings: " + innings));
     }
 
     @Override
     public List<InningsScorecard> getInningsScorecardsByMatch(Integer matchId) {
-        return inningsScorecardRepository.findByMatchMatchId(matchId);
-    }
-
-    @Override
-    public List<InningsScorecard> getInningsScorecardsByTeam(Integer teamId) {
-        return inningsScorecardRepository.findByTeamTeamId(teamId);
-    }
-
-    @Override
-    public List<InningsScorecard> getInningsScorecardsByMatchAndTeam(Integer matchId, Integer teamId) {
-        return inningsScorecardRepository.findByMatchMatchIdAndTeamTeamId(matchId, teamId);
+        return inningsScorecardRepository.findByMatchId(matchId);
     }
 } 

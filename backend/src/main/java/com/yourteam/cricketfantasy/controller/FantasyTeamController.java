@@ -38,14 +38,8 @@ public class FantasyTeamController {
 
     @GetMapping("/league-user/{leagueUserId}")
     @Operation(summary = "Get fantasy teams by league user ID")
-    public ResponseEntity<List<FantasyTeam>> getFantasyTeamsByLeagueUser(@PathVariable Long leagueUserId) {
-        return ResponseEntity.ok(fantasyTeamService.getFantasyTeamsByLeagueUser(leagueUserId));
-    }
-
-    @GetMapping("/match/{matchId}")
-    @Operation(summary = "Get fantasy teams by match ID")
-    public ResponseEntity<List<FantasyTeam>> getFantasyTeamsByMatch(@PathVariable Integer matchId) {
-        return ResponseEntity.ok(fantasyTeamService.getFantasyTeamsByMatch(matchId));
+    public ResponseEntity<List<FantasyTeam>> getFantasyTeamsByUser(@PathVariable Long userId) {
+        return ResponseEntity.ok(fantasyTeamService.getFantasyTeamsByUser(userId));
     }
 
     @PutMapping("/{id}")

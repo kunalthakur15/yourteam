@@ -32,7 +32,7 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public List<Player> getPlayersByTeam(Integer teamId) {
-        return playerRepository.findByTeamTeamId(teamId);
+        return playerRepository.findByTeamsTeamId(teamId);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public List<Player> getPlayersByTeamAndRole(Integer teamId, PlayerRole role) {
-        return playerRepository.findByTeamTeamIdAndRole(teamId, role);
+        return playerRepository.findByTeamsTeamIdAndRole(teamId, role);
     }
 
     @Override

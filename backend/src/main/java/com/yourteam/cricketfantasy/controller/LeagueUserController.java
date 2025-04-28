@@ -1,6 +1,6 @@
 package com.yourteam.cricketfantasy.controller;
 
-import com.yourteam.cricketfantasy.model.LeagueUser;
+import com.yourteam.cricketfantasy.model.User;
 import com.yourteam.cricketfantasy.service.LeagueUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,26 +20,26 @@ public class LeagueUserController {
 
     @PostMapping
     @Operation(summary = "Create a new league user")
-    public ResponseEntity<LeagueUser> createLeagueUser(@RequestBody LeagueUser leagueUser) {
-        return ResponseEntity.ok(leagueUserService.createLeagueUser(leagueUser));
+    public ResponseEntity<User> createLeagueUser(@RequestBody User user) {
+        return ResponseEntity.ok(leagueUserService.createLeagueUser(user));
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Get a league user by ID")
-    public ResponseEntity<LeagueUser> getLeagueUserById(@PathVariable Long id) {
+    public ResponseEntity<User> getLeagueUserById(@PathVariable Long id) {
         return ResponseEntity.ok(leagueUserService.getLeagueUserById(id));
     }
 
     @GetMapping
     @Operation(summary = "Get all league users")
-    public ResponseEntity<List<LeagueUser>> getAllLeagueUsers() {
+    public ResponseEntity<List<User>> getAllLeagueUsers() {
         return ResponseEntity.ok(leagueUserService.getAllLeagueUsers());
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Update a league user")
-    public ResponseEntity<LeagueUser> updateLeagueUser(@PathVariable Long id, @RequestBody LeagueUser leagueUser) {
-        return ResponseEntity.ok(leagueUserService.updateLeagueUser(id, leagueUser));
+    public ResponseEntity<User> updateLeagueUser(@PathVariable Long id, @RequestBody User user) {
+        return ResponseEntity.ok(leagueUserService.updateLeagueUser(id, user));
     }
 
     @DeleteMapping("/{id}")

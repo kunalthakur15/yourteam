@@ -14,6 +14,9 @@ public class InningsScorecard {
     @Column(name = "innings_scorecard_id")
     private Integer inningsScorecardId;
 
+    @Column(name = "inning_number")
+    private Integer inningNumber;
+
     @ManyToOne
     @JoinColumn(name = "match_id")
     private Match match;

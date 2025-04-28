@@ -32,11 +32,9 @@ public class BattingStatsServiceImpl implements BattingStatsService {
     @Override
     public BattingStats updateBattingStats(Integer battingStatsId, BattingStats battingStats) {
         BattingStats existingBattingStats = getBattingStatsById(battingStatsId);
-        existingBattingStats.setMatch(battingStats.getMatch());
         existingBattingStats.setInningsScorecard(battingStats.getInningsScorecard());
         existingBattingStats.setPlayer(battingStats.getPlayer());
         existingBattingStats.setTeam(battingStats.getTeam());
-        existingBattingStats.setInnings(battingStats.getInnings());
         existingBattingStats.setBattingPosition(battingStats.getBattingPosition());
         existingBattingStats.setRunsScored(battingStats.getRunsScored());
         existingBattingStats.setBallsFaced(battingStats.getBallsFaced());
@@ -55,28 +53,4 @@ public class BattingStatsServiceImpl implements BattingStatsService {
         battingStatsRepository.deleteById(battingStatsId);
     }
 
-    @Override
-    public List<BattingStats> getBattingStatsByTeam(Integer teamId) {
-        return battingStatsRepository.findByTeamTeamId(teamId);
-    }
-
-    @Override
-    public List<BattingStats> getBattingStatsByMatch(Integer matchId) {
-        return battingStatsRepository.findByMatchMatchId(matchId);
-    }
-
-    @Override
-    public List<BattingStats> getBattingStatsByMatchAndTeam(Integer matchId, Integer teamId) {
-        return battingStatsRepository.findByMatchMatchIdAndTeamTeamId(matchId, teamId);
-    }
-
-    @Override
-    public List<BattingStats> getBattingStatsByPlayer(Integer playerId) {
-        return battingStatsRepository.findByPlayerPlayerId(playerId);
-    }
-
-    @Override
-    public List<BattingStats> getBattingStatsByMatchAndInnings(Integer matchId, Integer innings) {
-        return battingStatsRepository.findByMatchMatchIdAndInnings(matchId, innings);
-    }
 } 

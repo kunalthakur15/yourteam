@@ -42,20 +42,6 @@ public class InningsScorecardController {
         return ResponseEntity.ok(inningsScorecardService.getInningsScorecardsByMatch(matchId));
     }
 
-    @GetMapping("/team/{teamId}")
-    @Operation(summary = "Get innings scorecards by team ID")
-    public ResponseEntity<List<InningsScorecard>> getInningsScorecardsByTeam(@PathVariable Integer teamId) {
-        return ResponseEntity.ok(inningsScorecardService.getInningsScorecardsByTeam(teamId));
-    }
-
-    @GetMapping("/match/{matchId}/team/{teamId}")
-    @Operation(summary = "Get innings scorecards by match ID and team ID")
-    public ResponseEntity<List<InningsScorecard>> getInningsScorecardsByMatchAndTeam(
-            @PathVariable Integer matchId,
-            @PathVariable Integer teamId) {
-        return ResponseEntity.ok(inningsScorecardService.getInningsScorecardsByMatchAndTeam(matchId, teamId));
-    }
-
     @GetMapping("/match/{matchId}/innings/{innings}")
     @Operation(summary = "Get innings scorecard by match ID and innings")
     public ResponseEntity<InningsScorecard> getInningsScorecardByMatchAndInnings(
