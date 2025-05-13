@@ -39,6 +39,10 @@ public class InningsScorecard {
     @Column(name = "extras")
     private Integer extras;
 
+    //create a class to track fall of wickets
+    @OneToMany(mappedBy = "inningsScorecard")
+    private List<FallOfWickets> fallOfWickets;
+
     public Object getInnings() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getInnings'");

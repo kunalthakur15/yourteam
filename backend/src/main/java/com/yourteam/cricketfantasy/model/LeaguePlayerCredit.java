@@ -1,0 +1,32 @@
+package com.yourteam.cricketfantasy.model;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;   
+import jakarta.persistence.Table;
+import lombok.Data;
+
+@Data
+@Entity
+@Table(name = "league_player_credit")
+public class LeaguePlayerCredit {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @ManyToOne
+    @JoinColumn(name = "league_id")
+    private FantasyLeague league;
+
+    @ManyToOne
+    @JoinColumn(name = "player_id")
+    private Player player;
+
+    @Column(name = "credit")
+    private Integer credit;
+}
+
