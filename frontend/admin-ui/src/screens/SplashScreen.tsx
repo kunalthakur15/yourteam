@@ -1,14 +1,20 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { RootStackParamList } from '../navigation/AppNavigator';
 
 const SplashScreen = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   useEffect(() => {
+    if (Platform.OS === 'web' && typeof window !== 'undefined' && window.sessionStorage.getItem('isLoggedIn') === 'true') {
+      navigation.replace('Menu');
+      return;
+    }
     // Navigate to Login screen after 2 seconds
     const timer = setTimeout(() => {
-      navigation.navigate('Login');
+      navigation.replace('Login');
     }, 2000);
 
     return () => clearTimeout(timer);

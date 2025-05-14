@@ -1,0 +1,8 @@
+.card-web-transition {
+  transition: transform 0.25s cubic-bezier(0.4,0.2,0.2,1), box-shadow 0.25s cubic-bezier(0.4,0.2,0.2,1);
+}
+.card-web-hover {
+  transform: translateY(-8px);
+  z-index: 2;
+  box-shadow: 0 8px 32px 0 rgba(255, 187, 0, 0.18), 0 2px 8px 0 rgba(255, 187, 0, 0.10);
+} 
